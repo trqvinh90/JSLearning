@@ -1,6 +1,6 @@
 const sum = (...args1) => {
     return (...args2) => {
-        if (args2.length > 0) {
+        if (args2.length) {
             // recursive method
             // combine 2 arrays into main array: args1
             return sum(...args1, ...args2);
@@ -10,8 +10,4 @@ const sum = (...args1) => {
     } 
 }
 
-// const result = sum(2,3);
-// const result = sum(2)(3);
-// const result = sum(1,2,3)(4);
 const result = sum(1)(2)(3)(4);
-console.log(result());

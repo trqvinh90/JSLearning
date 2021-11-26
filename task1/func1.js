@@ -10,6 +10,6 @@ const runningAverage = () => {
   };
 
 const rAvg = runningAverage();
-console.log(rAvg(10));
-console.log(rAvg(11));
-console.log(rAvg(12));
+rAvg(10);
+rAvg(11);
+rAvg(12);
