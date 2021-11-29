@@ -1,66 +1,60 @@
-function sortAsc(array) {
-    return array.sort((a,b) => a-b);
-}
-
 class Vector {
     constructor(inputArray) {
         this.array = inputArray;
     }
 
-    checkIsSameLength(vector) {
-        if (this.array.length !== vector.array.length) {
+    _validateVectorsLength(array) {
+        if (this.array.length !== array.length) {
             throw "Two vectors should have a same length";
         }
     }
 
-    add(vector) {
-        this.checkIsSameLength(vector);
-        const result = [];
-        for (let index = 0; index < this.array.length; index++) {
-            result.push(this.array[index] + vector.array[index]);
-        }
-        return result;
+    _sortAsc(array) {
+        return array.sort((a,b) => a-b);
     }
 
-    subtract(vector) {
-        this.checkIsSameLength(vector);
-        const result = [];
-        for (let index = 0; index < this.array.length; index++) {
-            result.push(this.array[index] - vector.array[index]);
-        }
-        return result;
+    add({array}) {
+        this._validateVectorsLength(array);
+        return new Vector(this.array.map((num, index) => {
+            return num + array[index];
+        }));
     }
 
-    dot(vector) {
-        this.checkIsSameLength(vector);
-        const result = [];
-        for (let index = 0; index < this.array.length; index++) {
-            result.push(this.array[index] * vector.array[index]);
-        }
-        return result.reduce((sum, ele) => sum + ele, 0);
+    subtract({array}) {
+        this._validateVectorsLength(array);
+        return new Vector(this.array.map((num, index) => {
+            return num - array[index];
+        }));
+    }
+
+    dot({array}) {
+        this._validateVectorsLength(array);
+        return this.array.reduce((acc, current, index) => {
+            return acc + (current * array[index]);
+        }, 0);
     }
 
     norm() {
-        const result = [];
-        for (let index = 0; index < this.array.length; index++) {
-            result.push(Math.pow(this.array[index], 2));
-        }
-        return Math.sqrt(result.reduce((sum, ele) => sum + ele, 0))
+        return Math.sqrt(this.array.reduce((acc, current) => {
+            return acc + (current ** 2);
+        }, 0));
     }
 
     toString() {
         return `(${this.array.join(',')})`;
     }
 
-    equals(vector) {
-        if (this.array.length !== vector.array.length) return false;
+    equals({array}) {
+        if (this.array.length !== array.length) {
+            return false;
+        };
         
         // sort 2 arrays
-        const sortMainArr = sortAsc(this.array);
-        const sortSecondArr = sortAsc(vector.array);
+        const sortedMainArr = this._sortAsc(this.array);
+        const sortedSecondArr = this._sortAsc(array);
 
-        for (let index = 0; index < sortMainArr.length; index++) {
-            if (sortMainArr[index] !== sortSecondArr[index])
+        for (let i = 0; i < sortedMainArr.length; i++) {
+            if (sortedMainArr[i] !== sortedSecondArr[i])
                 return false;
         }
 
@@ -76,6 +70,6 @@ const d = new Vector([3,1,2]);
 a.add(b);
 a.subtract(b);
 a.dot(b);
-a.norm()
+a.norm();
 a.add(c);
 a.equals(d);
