@@ -3,16 +3,6 @@ class Vector {
         this.array = inputArray;
     }
 
-    _validateVectorsLength(array) {
-        if (this.array.length !== array.length) {
-            throw "Two vectors should have a same length";
-        }
-    }
-
-    _sortAsc(array) {
-        return array.sort((a,b) => a-b);
-    }
-
     add({array}) {
         this._validateVectorsLength(array);
         return new Vector(this.array.map((num, index) => {
@@ -47,18 +37,29 @@ class Vector {
     equals({array}) {
         if (this.array.length !== array.length) {
             return false;
-        };
+        }
         
         // sort 2 arrays
         const sortedMainArr = this._sortAsc(this.array);
         const sortedSecondArr = this._sortAsc(array);
 
         for (let i = 0; i < sortedMainArr.length; i++) {
-            if (sortedMainArr[i] !== sortedSecondArr[i])
+            if (sortedMainArr[i] !== sortedSecondArr[i]) {
                 return false;
+            }
         }
 
         return true;
+    }
+
+    _validateVectorsLength(array) {
+        if (this.array.length !== array.length) {
+            throw "Two vectors should have a same length";
+        }
+    }
+
+    _sortAsc(array) {
+        return array.sort((a,b) => a-b);
     }
 }
 
