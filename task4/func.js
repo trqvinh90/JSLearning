@@ -10,7 +10,7 @@ Person.prototype.introduce = function () {
 function myNew(constructorName, ...args) {
     const objPrototype = Object.create(constructorName.prototype);
     const instance = constructorName.apply(objPrototype, args);
-    return (typeof instance === 'object' && instance) || objPrototype;
+    return ((typeof instance === 'object' || typeof instance === 'function') && instance) || objPrototype;
 }
 
 const john = myNew(Person, 'John', 30);
