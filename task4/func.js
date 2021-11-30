@@ -4,17 +4,13 @@ function Person(name,age) {
 }
 
 Person.prototype.introduce = function () {
-    return 'My name is ' + this.name + ' and I am ' + this.age;
+    return `My name is ${this.name} and I am ${this.age}`;
 }
 
-function myNew(type, ...args) {
-    // create new empty object
-    let instance = {};
-    // assign prototype to new instance -> Person
-    instance.__proto__ = type.prototype;
-    // invoke constructor function
-    type.call(instance, ...args);
-    return instance;
+function myNew(constructorName, ...args) {
+    const objPrototype = Object.create(constructorName.prototype);
+    const instance = constructorName.apply(objPrototype, args);
+    return (typeof instance === 'object' && instance) || objPrototype;
 }
 
 const john = myNew(Person, 'John', 30);
