@@ -1,11 +1,7 @@
-class MyPromise {
-    constructor(callback) {
-        this.promise = new Promise(callback);
-    }
-
+class MyPromise extends Promise {
     syncThen(callback) {
         callback();
-        return this.promise;
+        return this;
     }
 }
 

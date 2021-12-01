@@ -1,15 +1,15 @@
-class ReversePromise {
+class ReversePromise extends Promise {
     constructor(callback) {
+        super(callback);
         this.arrayCbs = [];
-        this.promise = new Promise(callback).finally(() => {
-            this.arrayCbs.forEach(element => {
-                element();
-            });
-        });
+        setTimeout(() => {
+            this.arrayCbs.reverse().forEach(callback => callback());
+            this.arrayCbs = [];
+        }, 0);
     }
 
     then(callback) {
-        this.arrayCbs.unshift(callback);
+        this.arrayCbs.push(callback);
         return this;
     }
 }
@@ -20,4 +20,4 @@ const promise = new ReversePromise((resolve) => {
     })
     .then(() => console.log(2))
     .then(() => console.log(3))
-    .then(() => console.log(4))
+    .then(() => console.log(4));
