@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>JavaScript Events</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <table id="main"></table>
+  <script> 
+    const numberofRow = 100;
+    const numberofCol = 100;
+
+    const table = document.getElementById('main');
+    table.border = '1';
+
+    const tableBody = document.createElement('tbody');
+    table.appendChild(tableBody);
+        
+    for (var i=0; i<numberofRow; i++){
+      var tr = document.createElement('tr');
+      tableBody.appendChild(tr);
+         
+      for (var j=0; j<numberofCol; j++){
+        var td = document.createElement('td');
+        td.className = "td";
+        tr.appendChild(td);
+        td.draggable = true;
+      }
+    }
+
+    const time1 = new Date().getTime();
+    // add listener for each cell
+    const tds = document.querySelectorAll('td');
+    tds.forEach(td => td.addEventListener('click', () => console.log('Clicked!')));
+    // event delegation
+    table.addEventListener('click', event => {
+      if (event.target.className === 'td') {
+        console.log('Clicked!');
+      }
+    });
+    const time2 = new Date().getTime();
+    console.log(time2-time1);
+    // 1st method: add listener for each cell -> 15~20
+    // 2nd method: event delegation -> 0~1
+    // -> event delegation is much faster
+
+    // apply drag & drop
+    table.addEventListener('dragstart', event => {
+      if (event.target.className === 'td') {
+        console.log('dragstart');
+      }
+    });
+    table.addEventListener('dragover', event => {
+      if (event.target.className === 'td') {
+        event.preventDefault();
+        console.log('dragover');
+      }
+    });
+    table.addEventListener('drop', event => {
+      if (event.target.className === 'td') {
+        event.preventDefault();
+        console.log('drop');
+      }
+    });
+    table.addEventListener('touchStart', event => {
+      if (event.target.className === 'td') {
+        event.preventDefault();
+        console.log('touchStart');
+      }
+    });
+  </script>
+</body>
+</html>
