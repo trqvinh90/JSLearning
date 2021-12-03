@@ -3,10 +3,7 @@ body {
 }
 
 td {
-  width: 30px;
-  height: 20px;
-}
-
+  width: 30
 td .info {
   font-size: large;
 }

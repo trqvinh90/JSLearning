@@ -18,11 +18,11 @@
     table.appendChild(tableBody);
         
     for (let i=0; i<numberOfRow; i++){
-      var tr = document.createElement('tr');
+      const tr = document.createElement('tr');
       tableBody.appendChild(tr);
          
       for (let j=0; j<numberOfCol; j++){
-        var td = document.createElement('td');
+        const td = document.createElement('td');
         td.className = "td";
         td.id=`${i}${j}`;
         td.draggable = true;
