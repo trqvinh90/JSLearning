@@ -9,4 +9,8 @@ function badFunc() {
     throw new CustomError(500, "Internal error");
 }
 
-badFunc();
+try { 
+    badFunc();
+} catch(exception) {
+    console.log(exception);
+}
