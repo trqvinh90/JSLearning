@@ -8,8 +8,8 @@
 <body>
   <table id="main"></table>
   <script> 
-    const numberofRow = 100;
-    const numberofCol = 100;
+    const numberOfRow = 100;
+    const numberOfCol = 100;
 
     const table = document.getElementById('main');
     table.border = '1';
@@ -17,22 +17,29 @@
     const tableBody = document.createElement('tbody');
     table.appendChild(tableBody);
         
-    for (var i=0; i<numberofRow; i++){
+    for (let i=0; i<numberOfRow; i++){
       var tr = document.createElement('tr');
       tableBody.appendChild(tr);
          
-      for (var j=0; j<numberofCol; j++){
+      for (let j=0; j<numberOfCol; j++){
         var td = document.createElement('td');
         td.className = "td";
-        tr.appendChild(td);
+        td.id=`${i}${j}`;
         td.draggable = true;
+        const randomColor = Math.floor(Math.random()*16777215).toString(16);
+        td.innerHTML = `<div class="info" style="color:#${randomColor}">[${i},${j}]</div>`;
+        tr.appendChild(td);
       }
     }
 
     const time1 = new Date().getTime();
     // add listener for each cell
-    const tds = document.querySelectorAll('td');
-    tds.forEach(td => td.addEventListener('click', () => console.log('Clicked!')));
+    const tableCells = document.querySelectorAll('td');
+    tableCells.forEach((cell) => {
+      cell.addEventListener('click', () => {
+        console.log('Clicked!');
+      });
+    });
     // event delegation
     table.addEventListener('click', event => {
       if (event.target.className === 'td') {
@@ -48,25 +55,20 @@
     // apply drag & drop
     table.addEventListener('dragstart', event => {
       if (event.target.className === 'td') {
-        console.log('dragstart');
+        event.dataTransfer.setData("cellId", event.target.id);
       }
     });
     table.addEventListener('dragover', event => {
-      if (event.target.className === 'td') {
-        event.preventDefault();
-        console.log('dragover');
-      }
+      event.preventDefault();
     });
     table.addEventListener('drop', event => {
-      if (event.target.className === 'td') {
-        event.preventDefault();
-        console.log('drop');
-      }
-    });
-    table.addEventListener('touchStart', event => {
-      if (event.target.className === 'td') {
-        event.preventDefault();
-        console.log('touchStart');
+      event.preventDefault();
+      if (event.target.className === 'info') {
+        const firstCell = document.getElementById(event.dataTransfer.getData("cellId"));
+        // swap coordination between 2 cells
+        const temp = event.target.parentElement.innerHTML;
+        event.target.parentElement.innerHTML = firstCell.innerHTML;
+        firstCell.innerHTML = temp;
       }
     });
   </script>
