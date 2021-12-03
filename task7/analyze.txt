@@ -1,0 +1,14 @@
+1/ learn.epam.com
+- Do they have memory leaks? -> no
+- What functions are taking more time for execution? -> fetch data
+- What time does it take for rendering first meaningful page? -> 1845ms 
+
+2/ kb.epam.com
+- Do they have memory leaks? -> no
+- What functions are taking more time for execution? -> fetch data
+- What time does it take for rendering first meaningful page? -> 7174ms 
+
+3/ onboarding.epam.com
+- Do they have memory leaks? -> no
+- What functions are taking more time for execution? -> fetch data
+- What time does it take for rendering first meaningful page? -> 3526ms 
