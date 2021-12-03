@@ -1,0 +1,9 @@
+body {
+  background: white;
+}
+
+td {
+  width: 30
+td .info {
+  font-size: large;
+}

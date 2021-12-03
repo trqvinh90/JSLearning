@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>JavaScript Events</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <table id="main"></table>
+  <script> 
+    const numberOfRow = 100;
+    const numberOfCol = 100;
+
+    const table = document.getElementById('main');
+    table.border = '1';
+
+    const tableBody = document.createElement('tbody');
+    table.appendChild(tableBody);
+        
+    for (let i=0; i<numberOfRow; i++){
+      const tr = document.createElement('tr');
+      tableBody.appendChild(tr);
+         
+      for (let j=0; j<numberOfCol; j++){
+        const td = document.createElement('td');
+        td.className = "td";
+        td.id=`${i}${j}`;
+        td.draggable = true;
+        const randomColor = Math.floor(Math.random()*16777215).toString(16);
+        td.innerHTML = `<div class="info" style="color:#${randomColor}">[${i},${j}]</div>`;
+        tr.appendChild(td);
+      }
+    }
+
+    const time1 = new Date().getTime();
+    // add listener for each cell
+    const tableCells = document.querySelectorAll('td');
+    tableCells.forEach((cell) => {
+      cell.addEventListener('click', () => {
+        console.log('Clicked!');
+      });
+    });
+    // event delegation
+    table.addEventListener('click', event => {
+      if (event.target.className === 'td') {
+        console.log('Clicked!');
+      }
+    });
+    const time2 = new Date().getTime();
+    console.log(time2-time1);
+    // 1st method: add listener for each cell -> 15~20
+    // 2nd method: event delegation -> 0~1
+    // -> event delegation is much faster
+
+    // apply drag & drop
+    table.addEventListener('dragstart', event => {
+      if (event.target.className === 'td') {
+        event.dataTransfer.setData("cellId", event.target.id);
+      }
+    });
+    table.addEventListener('dragover', event => {
+      event.preventDefault();
+    });
+    table.addEventListener('drop', event => {
+      event.preventDefault();
+      if (event.target.className === 'info') {
+        const firstCell = document.getElementById(event.dataTransfer.getData("cellId"));
+        // swap coordination between 2 cells
+        const temp = event.target.parentElement.innerHTML;
+        event.target.parentElement.innerHTML = firstCell.innerHTML;
+        firstCell.innerHTML = temp;
+      }
+    });
+  </script>
+</body>
+</html>
