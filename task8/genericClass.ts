@@ -10,13 +10,12 @@ abstract class Pet {
     toString(): string {
         return `${this.name}(${this.type})`;
     }
-
 }
 
 enum FoodType {
     Meat,
     Vegetarian,
-    Anything
+    RawFood
 }
 
 interface Food<Type> {
@@ -36,10 +35,7 @@ class MyPet extends Pet implements Food<FoodType> {
     }
 
     checkFoodQuality(food: FoodType, quantity: number): boolean {
-        if (this.food !== food || this.quantityPerDay > quantity) { 
-            return false;
-        };
-        return true;
+        return this.food === food && this.quantityPerDay <= quantity
     }
 }
 
