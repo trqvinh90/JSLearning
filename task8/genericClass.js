@@ -27,7 +27,7 @@ var FoodType;
 (function (FoodType) {
     FoodType[FoodType["Meat"] = 0] = "Meat";
     FoodType[FoodType["Vegetarian"] = 1] = "Vegetarian";
-    FoodType[FoodType["Anything"] = 2] = "Anything";
+    FoodType[FoodType["RawFood"] = 2] = "RawFood";
 })(FoodType || (FoodType = {}));
 var MyPet = /** @class */ (function (_super) {
     __extends(MyPet, _super);
@@ -38,11 +38,7 @@ var MyPet = /** @class */ (function (_super) {
         return _this;
     }
     MyPet.prototype.checkFoodQuality = function (food, quantity) {
-        if (this.food !== food || this.quantityPerDay > quantity) {
-            return false;
-        }
-        ;
-        return true;
+        return this.food === food && this.quantityPerDay <= quantity;
     };
     return MyPet;
 }(Pet));

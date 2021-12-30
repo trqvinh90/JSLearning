@@ -35,7 +35,7 @@ class MyPet extends Pet implements Food<FoodType> {
     }
 
     checkFoodQuality(food: FoodType, quantity: number): boolean {
-        return this.food === food && this.quantityPerDay <= quantity
+        return this.food === food && this.quantityPerDay <= quantity;
     }
 }
 
