@@ -18,19 +18,20 @@ export class Point {
     distance(x: number, y: number): number;
     distance(pointOrNumber?: Point | number, y?: number): number {
         if (pointOrNumber !== undefined) {
-            let coordinatorX = 0, coordinatorY = y;
+            let coordinatorX = 0;
+            let coordinatorY = y;
             if (pointOrNumber instanceof Point) {
                 // second overload
                 coordinatorX = pointOrNumber.x;
                 coordinatorY = pointOrNumber.y;
-            } else if (y !== undefined) {
+            } else if (y >= 0) {
                 // third overload
                 coordinatorX = pointOrNumber;
             }
-            return Math.sqrt((this.x - coordinatorX)**2 + (this.y - coordinatorY)**2);
+            return Math.sqrt(Math.pow(this.x - coordinatorX, 2) + Math.pow(this.y - coordinatorY, 2));
         }
 
         // first overload
-        return Math.sqrt(this.x**2 + this.y**2);
+        return Math.sqrt(Math.pow(this.x, 2) + Math.pow(this.y, 2));
     }
 }

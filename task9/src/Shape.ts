@@ -9,9 +9,9 @@ export abstract class Shape {
     constructor(points: Array<Point>, color: string, filled: boolean);
     constructor(points: Array<Point>, color?: string, filled?: boolean) {
         if (points.length <= 2) {
-            throw new Error('Shape has at least 3 points.');
+            throw new Error('Shape should have at least 3 points.');
         }
-        if (color === undefined && filled === undefined) {
+        if (!color && !filled) {
             this.color = 'green';
             this.filled = true;
         } else {
@@ -22,13 +22,13 @@ export abstract class Shape {
     }
 
     toString(): string {
-        const pointsToString = this.points.join(', ')
-        return `A Shape with color of ${this.color} and ${this.filled ? 'filled' : 'not filled'}. Points: ${pointsToString}.`;
+        const pointsStringFromArray = this.points.join(', ');
+        return `A Shape with color of ${this.color} and ${this.filled ? 'filled' : 'not filled'}. Points: ${pointsStringFromArray}.`;
     }
 
     getPerimeter(): number {
         return this.points.reduce<number>((acc, currentPoint, currentIndex) => {
-            const prevIndex = currentIndex === 0 ? this.points.length-1 : currentIndex-1;
+            const prevIndex = currentIndex === 0 ? this.points.length - 1 : currentIndex - 1;
             return acc + currentPoint.distance(this.points[prevIndex]);
         }, 0);
     }

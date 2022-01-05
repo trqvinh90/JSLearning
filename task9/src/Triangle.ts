@@ -10,8 +10,8 @@ export class Triangle extends Shape {
 
     // TS 4.3 -> use override keyword
     toString(): string {
-        const pointsToString = this.points.map((point, index) => `v${index+1}=${point.toString()}`);
-        return `Triangle[${pointsToString.join(',')}]`;
+        const formattedPoints = this.points.map((point, index) => `v${index+1}=${point.toString()}`);
+        return `Triangle[${formattedPoints.join(',')}]`;
     }
 
     getType(): string {
@@ -19,7 +19,6 @@ export class Triangle extends Shape {
             const prevIndex = index === 0 ? this.points.length-1 : index-1;
             return point.distance(this.points[prevIndex]).toFixed(2);
         });
-        console.log(sides);
         if (sides[0] === sides[1] && sides[1] === sides[2]) {
             return 'equilateral triangle';
         }
