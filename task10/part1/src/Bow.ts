@@ -6,9 +6,9 @@ export class Bow extends Weapon {
     }
 
     public polish(): void {
-        this._damageModifier += this.MODIFIER_CHANGE_RATE;
-        if (this._damageModifier > 1) {
-            this._damageModifier = 1;
+        this.damageModifier += this.MODIFIER_CHANGE_RATE;
+        if (this.damageModifier > 1) {
+            this.damageModifier = 1;
         }
     }
 }
