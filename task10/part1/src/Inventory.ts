@@ -3,27 +3,27 @@ import { ItemComparator } from './ItemComparator';
 import { ItemWeightComparator } from './ItemWeightComparator';
 
 export class Inventory {
-    _items: Array<Item>;
+    items: Array<Item>;
 
     constructor() {
-        this._items = [];
+        this.items = [];
     }
 
     public sort(): void;
     public sort(comparator: ItemComparator): void;
     public sort(comparator?: ItemComparator): void {
         if (comparator && comparator instanceof ItemWeightComparator) {
-            this._items.sort((item1, item2) => comparator.compare(item1, item2));
+            this.items.sort((item1, item2) => comparator.compare(item1, item2));
         } else {
-            this._items.sort((item1, item2) => item1.compareTo(item2));
+            this.items.sort((item1, item2) => item1.compareTo(item2));
         }
     }
 
     public toString(): string {
-        return this._items.join(', ');
+        return this.items.join(', ');
     }
 
     public addItem(item: Item): void {
-        this._items.push(item);
+        this.items.push(item);
     }
 } 

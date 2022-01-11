@@ -1,28 +1,28 @@
 import { Item } from './Item';
 
 export abstract class Consumable extends Item {
-    _consumed: boolean;
-    _spoiled: boolean;
+    consumed: boolean;
+    spoiled: boolean;
 
     constructor(name: string, value: number, weight: number, spoiled: boolean) {
         super(name, value, weight);
-        this._consumed = false;
-        this._spoiled = spoiled;
+        this.consumed = false;
+        this.spoiled = spoiled;
     }
 
     public abstract eat(): string;
 
     public use(): string {
-        if (!this._consumed && !this._spoiled) {
+        if (!this.consumed && !this.spoiled) {
             return this.eat();
         }
 
         let stringOutput: string;
-        if (this._consumed) {
-            stringOutput = `There is nothing left of the ${this._name} to consume.`;
+        if (this.consumed) {
+            stringOutput = `There is nothing left of the ${this.name} to consume.`;
         } else {
             stringOutput = this.eat();
-            if (this._spoiled) {
+            if (this.spoiled) {
                 stringOutput += `\nYou feel sick.`;
             }
         }
