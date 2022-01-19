@@ -1,6 +1,6 @@
 import { Pages } from "./pages";
 
-export const PagesIterablesMixins = (superclass: any) => class extends superclass {
+export const PagesIterablesMixins = (superClass: any) => class extends superClass {
     pages: Pages;
 
     constructor(pages: Pages) {
@@ -8,20 +8,9 @@ export const PagesIterablesMixins = (superclass: any) => class extends superclas
         this.pages = pages;
     }
 
-    [Symbol.iterator]() {
-        let index = 0;
-
-        return {
-            next: () => {
-                if (index < this.pages.length) {
-                    let outputString = this.toString();
-                    outputString += `, ${this.pages.printPageDetail(index)}`;
-                    index++;
-                    return { value: outputString, done: false }
-                } else {
-                    return { value: '', done: true }
-                }
-            }
+    *[Symbol.iterator]() {
+        for (const page of (<any>this).pages.pages) {
+            yield `${this.toString()}, ${page.toString()}`;
         }
     }
 }

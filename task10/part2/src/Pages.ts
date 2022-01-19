@@ -6,12 +6,8 @@ export class Pages {
     constructor(pages: Array<Page>) {
         this.pages = pages;
     }
-   
-    public get length() : number {
-        return this.pages.length;
-    }
 
-    public printPageDetail(index: number) : string {
-        return this.pages[index].toString();
+    public get length(): number {
+        return this.pages.length;
     }
 }
