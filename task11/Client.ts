@@ -1,5 +1,8 @@
 import { Shipment } from './Shipment';
-import { DoNotLeaveShipmentDecorator, FragileShipmentDecorator, ReturnReceiptShipmentDecorator } from './ShipmentDecorator';
+import { DoNotLeaveShipmentDecorator } from './decorators/DoNotLeaveShipmentDecorator';
+import { FragileShipmentDecorator } from './decorators/FragileShipmentDecorator';
+import { ReturnReceiptShipmentDecorator } from './decorators/ReturnReceiptShipmentDecorator';
+
 
 let item: Shipment = new Shipment({
     shipmentId: 17263,
@@ -12,5 +15,5 @@ let item: Shipment = new Shipment({
 item = new FragileShipmentDecorator(item);
 item = new DoNotLeaveShipmentDecorator(item);
 item = new ReturnReceiptShipmentDecorator(item);
-console.log(item);
-console.log(item.ship()); // bug: log 3 identical marks instead of different marks
+item.ship(); 
+
